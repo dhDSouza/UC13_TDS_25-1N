@@ -247,7 +247,7 @@ No TypeORM, a mesma coisa:
 
 ```ts
 const users = await userRepository.find({
-    relations: ['posts']
+    relations: { posts: true }
 });
 ```
 
@@ -269,7 +269,7 @@ const userRepository = AppDataSource.getRepository(User);
 export class UserService {
     async list() {
         return userRepository.find({
-            relations: ['posts'],
+            relations: { posts: true },
             order: {
                 id: 'ASC'
             }
@@ -279,7 +279,7 @@ export class UserService {
     async show(id: number) {
         const user = await userRepository.findOne({
             where: { id },
-            relations: ['posts']
+            relations: { posts: true }
         });
 
         if (!user) {
@@ -305,7 +305,7 @@ export class UserService {
             email
         });
 
-        await userRepository.save(user);
+        await userRepository.save(user)
 
         return user;
     }
@@ -361,7 +361,7 @@ const userRepository = AppDataSource.getRepository(User);
 export class PostService {
     async list() {
         return postRepository.find({
-            relations: ['user'],
+            relations: { user: true },
             order: { id: 'ASC' }
         });
     }
@@ -369,7 +369,7 @@ export class PostService {
     async show(id: number) {
         const post = await postRepository.findOne({
             where: { id },
-            relations: ['user']
+            relations: { user: true }
         });
 
         if (!post) {
